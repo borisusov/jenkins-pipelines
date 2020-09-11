@@ -1,14 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('Example') {
+        stage('2 - Build') {
             steps { 
-                echo 'Hello World'
-            }
-        }
-        stage('Example1') {
-            steps { 
-                echo 'Privet'
+                withMaven(maven: 'mvn_3.6.3'){
+                    sh "mvn clean install"
+                    sh "ls -la"
+                } 
             }
         }
     }
