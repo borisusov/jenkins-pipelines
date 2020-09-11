@@ -1,12 +1,14 @@
 pipeline {
     agent any
+    tools {
+        maven 'mvn_3.6.3' 
+    }
+    
     stages {
         stage('2 - Build') {
             steps { 
-                withMaven(maven: 'mvn_3.6.3'){
-                    sh "mvn clean install"
-                    sh "ls -la"
-                } 
+                sh "mvn clean install"
+                sh "ls -la" 
             }
         }
     }
