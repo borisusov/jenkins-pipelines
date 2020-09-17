@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent any;
     tools {
         maven 'mvn_3.6.3' 
     }
@@ -10,8 +10,7 @@ pipeline {
                 sh "mvn clean install"
                 sh "ls -la" 
                 sh "pwd"
-                sh "w"
-
+                
             }
         }
         
