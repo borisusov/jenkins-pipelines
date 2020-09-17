@@ -16,14 +16,17 @@ pipeline {
                 sh "pwd"
                 
             }
+            post {
+                success {
+                    archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+                }
+            }
         }
-    
     }
 
     post {
-        always {
-            archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+        cleanup {
+            cleanWs ()
         }
     }
-
 }
