@@ -1,5 +1,9 @@
 pipeline {
     agent any;
+    options {
+        copyArtifactPermission('master');
+    }
+
     tools {
         maven 'mvn_3.6.3' 
     }
