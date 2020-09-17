@@ -14,9 +14,9 @@ pipeline {
 
             }
         }
-    options {
-        copyArtifactPermission('master,integration,feature1');
-        }
+#    options {
+#       copyArtifactPermission('master');
+#        }
 
     }
 }
