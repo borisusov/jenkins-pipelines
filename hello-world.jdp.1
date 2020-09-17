@@ -9,14 +9,7 @@ pipeline {
             steps { 
                 sh "mvn clean install"
                 sh "ls -la" 
-                sh "pwd"
-                sh "w"
-
             }
         }
-    options {
-        copyArtifactPermission('master,integration,feature1');
-        }
-
     }
 }
