@@ -12,7 +12,7 @@ pipeline {
                 //sh "mvn clean install"
                 rtMavenResolver (
                         id: 'jfrog',
-                        serverId: '192.168.33.9:8081/artifactory',
+                        serverId: 'http://192.168.33.9:8081/artifactory',
                         releaseRepo: 'default.maven.local',
                         snapshotRepo: 'default.maven.local'
                  )
@@ -20,7 +20,7 @@ pipeline {
 
                 rtMavenDeployer (
                     id: 'jfrog',
-                    serverId: '192.168.33.9:8081/artifactory',
+                    serverId: 'http://192.168.33.9:8081/artifactory',
                     releaseRepo: 'default.maven.local',
                     snapshotRepo: 'default.maven.local',
                     // By default, 3 threads are used to upload the artifacts to Artifactory. You can override this default by setting:
