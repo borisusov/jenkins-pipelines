@@ -7,22 +7,22 @@ pipeline {
     }
     
     stages {
-        stage('2 - Build') {
+        stage('Maven Build') {
             steps { 
-                //sh "mvn clean install"
+                sh "env | sort"
                 rtMavenResolver (
                         id: 'my-resolver',
                         serverId: 'jfrog',
-                        releaseRepo: 'default.maven.global',
-                        snapshotRepo: 'default.maven.global'
+                        releaseRepo: 'default.maven.virtual',
+                        snapshotRepo: 'default.maven.virtual'
                  )
 
 
                 rtMavenDeployer (
                     id: 'my-deployer',
                     serverId: 'jfrog',
-                    releaseRepo: 'default.maven.local',
-                    snapshotRepo: 'default.maven.local',
+                    releaseRepo: 'relaese.maven.local',
+                    snapshotRepo: 'snapshot.maven.local',
                     // By default, 3 threads are used to upload the artifacts to Artifactory. You can override this default by setting:
                     threads: 3,
                     // Attach custom properties to the published artifacts:
@@ -38,8 +38,8 @@ pipeline {
                     resolverId: 'my-resolver',
                     deployerId: 'my-deployer',
                     // If the build name and build number are not set here, the current job name and number will be used:
-                    // buildName: 'my-build-name',
-                    // buildNumber: '17'
+                    //buildName: 'my-build-name',
+                    //buildNumber: '17'
                 )
 
             }
