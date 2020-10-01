@@ -11,16 +11,16 @@ pipeline {
             steps { 
                 //sh "mvn clean install"
                 rtMavenResolver (
-                        id: 'jfrog',
-                        serverId: 'http://192.168.33.9:8081/artifactory',
-                        releaseRepo: 'default.maven.local',
-                        snapshotRepo: 'default.maven.local'
+                        id: 'my-resolver',
+                        serverId: 'jfrog',
+                        releaseRepo: 'default.maven.global',
+                        snapshotRepo: 'default.maven.global'
                  )
 
 
                 rtMavenDeployer (
-                    id: 'jfrog',
-                    serverId: 'http://192.168.33.9:8081/artifactory',
+                    id: 'my-deployer',
+                    serverId: 'jfrog',
                     releaseRepo: 'default.maven.local',
                     snapshotRepo: 'default.maven.local',
                     // By default, 3 threads are used to upload the artifacts to Artifactory. You can override this default by setting:
@@ -28,6 +28,20 @@ pipeline {
                     // Attach custom properties to the published artifacts:
                     //properties: ['key1=value1', 'key2=value2']
                 )
+                rtMavenRun (
+                    // Tool name from Jenkins configuration.
+                    tool: maven,
+                    pom: 'pom.xml',
+                    goals: 'clean install',
+                    // Maven options.
+                    opts: '-Xms1024m -Xmx4096m',
+                    resolverId: 'my-resolver',
+                    deployerId: 'my-deployer',
+                    // If the build name and build number are not set here, the current job name and number will be used:
+                    // buildName: 'my-build-name',
+                    // buildNumber: '17'
+                )
+
             }
 
 
