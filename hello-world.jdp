@@ -36,7 +36,7 @@ pipeline {
           //      success {
           //          archiveArtifacts artifacts: 'target/*.war', fingerprint: true
           //      }
-            }
+          //  }
         }
     }
 
