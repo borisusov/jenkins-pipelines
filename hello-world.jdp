@@ -9,11 +9,29 @@ pipeline {
     stages {
         stage('2 - Build') {
             steps { 
-                sh "mvn clean install"
-                sh "ls -la" 
-                sh "pwd"
-                
+                //sh "mvn clean install"
+                rtMavenResolver (
+                        id: 'jfrog',
+                        serverId: '192.168.33.9',
+                        releaseRepo: 'default.maven.local',
+                        snapshotRepo: 'default.maven.local'
+                 )
+
+
+                rtMavenDeployer (
+                    id: 'jfrog',
+                    serverId: '192.168.33.9',
+                    releaseRepo: 'default.maven.local',
+                    snapshotRepo: 'default.maven.local',
+                    // By default, 3 threads are used to upload the artifacts to Artifactory. You can override this default by setting:
+                    threads: 6,
+                    // Attach custom properties to the published artifacts:
+                    //properties: ['key1=value1', 'key2=value2']
+                )
             }
+
+
+
             post {
                 success {
                     archiveArtifacts artifacts: 'target/*.war', fingerprint: true

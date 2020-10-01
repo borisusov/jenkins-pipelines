@@ -1,0 +1,30 @@
+pipeline {
+    agent any;
+    
+
+    tools {
+        maven 'mvn_3.6.3' 
+    }
+    
+    stages {
+        stage('2 - Build') {
+            steps { 
+                sh "mvn clean install"
+                sh "ls -la" 
+                sh "pwd"
+                
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+                }
+            }
+        }
+    }
+
+    post {
+        cleanup {
+            cleanWs ()
+        }
+    }
+}
