@@ -11,9 +11,10 @@ pipeline {
             steps { 
                 sh "env | sort"
                 script {
-                    pom = readMavenPom file: 'pom.xml'
-                    echo pom.getVersion()
-                    echo pom.getName()
+                    pom         = readMavenPom file: 'pom.xml'
+                    app_version = pom.getVersion()
+                    app_name    = pom.getName()
+                    echo "${app_name}-${app_version}"
                 }
                 rtMavenResolver (
                         id: 'my-resolver',
