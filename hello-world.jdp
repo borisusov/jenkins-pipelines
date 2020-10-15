@@ -10,6 +10,10 @@ pipeline {
         stage('Maven Build') {
             steps { 
                 sh "env | sort"
+                script {
+                    pom = readMavenPom file: 'pom.xml'
+                    echo pom.project.version
+                }
                 rtMavenResolver (
                         id: 'my-resolver',
                         serverId: 'jfrog',
@@ -41,6 +45,13 @@ pipeline {
                     buildName: 'HelloWorld',
                     buildNumber: BUILD_NUMBER
                 )
+
+
+                echo "Job name is ${JOB_NAME}"
+                echo "Build URL is ${BUILD_URL}"
+            
+
+
 
             }
 
