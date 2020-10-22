@@ -13,7 +13,7 @@ pipeline {
                 script {
                     pom         = readMavenPom file: 'pom.xml'
                     app_version = pom.getVersion()
-                    app_name    = pom.getName()                
+                    app_name    = pom.getName() 
                     echo "${app_name}-${app_version}"
                 }
                 rtMavenResolver (
