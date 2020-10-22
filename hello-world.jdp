@@ -51,6 +51,9 @@ pipeline {
 
                 echo "Job name is ${JOB_NAME}"
                 echo "Build URL is ${BUILD_URL}"
+                echo "Version is ${app_version}"
+                echo "Name is ${app_name}"
+                
             
 
 
