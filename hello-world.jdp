@@ -14,7 +14,8 @@ pipeline {
                     pom         = readMavenPom file: 'pom.xml'
                     app_version = pom.getVersion()
                     app_name    = pom.getName()
-                    echo "${app_name}-${app_version}"
+                    app_pack    = pom.getPackaging()
+                    echo "${app_name}-${app_version}-${app_pack}"
                 }
                 rtMavenResolver (
                         id: 'my-resolver',
@@ -51,9 +52,10 @@ pipeline {
 
                 echo "Job name is ${JOB_NAME}"
                 echo "Build URL is ${BUILD_URL}"
-                echo " BUILD_DISPLAY_NAME_${app_version}"
+                echo " $(BUILD_DISPLAY_NAME) is ${app_version}"
                 echo "Name is ${app_name}"
-                
+                echo "Package is ${app_pack}"
+               
             
 
 
