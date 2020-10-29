@@ -8,6 +8,11 @@ pipeline {
     
     stages {
         stage('Maven Build') {
+
+            when {
+                
+                expression { false }
+            }
             steps { 
                 sh "env | sort"
                 script {
@@ -16,10 +21,7 @@ pipeline {
                     app_name    = pom.getName() 
                     echo "${app_name}-${app_version}"
                     currentBuild.description = "${app_name}-${app_version}"
-                    sh "echo This is github script"                    
-                    sh "git tag new_version "             
-                    // sh "git push --tags"
-                    sh "git status"
+            
                 }
                 rtMavenResolver (
                         id: 'my-resolver',
@@ -75,6 +77,16 @@ pipeline {
           //      }
           //  }
         }
+        stage ("git tag"){
+            steps{
+                sh "echo This is github script"                    
+                sh "git tag new_version "             
+                sh "git push --tags "
+                sh "git status"
+            }
+        }
+        
+        
     }
 
     post {
