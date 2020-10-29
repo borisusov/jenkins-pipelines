@@ -18,7 +18,7 @@ pipeline {
                     currentBuild.description = "${app_name}-${app_version}"
                     sh "echo This is github script"
                     
-                    sh "git tag new_version -m"created by superdev" "
+                    sh "git tag new_version "
                     
                     
                     sh "git push --tags"
