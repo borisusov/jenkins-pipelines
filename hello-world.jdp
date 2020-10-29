@@ -17,9 +17,10 @@ pipeline {
                     echo "${app_name}-${app_version}"
                     currentBuild.description = "${app_name}-${app_version}"
                     sh "echo This is github script"
-                    sh "git add ."
-                    sh "git commit -m "${app_version}""
-                    sh "git push"
+                    
+                    sh "git tag new_version -m"created by superdev" "
+                    
+                    
                     sh "git push --tags"
                     sh "git status"
                 }
