@@ -16,12 +16,9 @@ pipeline {
                     app_name    = pom.getName() 
                     echo "${app_name}-${app_version}"
                     currentBuild.description = "${app_name}-${app_version}"
-                    sh "echo This is github script"
-                    
-                    sh "git tag new_version "
-                    
-                    
-                    sh "git push --tags"
+                    sh "echo This is github script"                    
+                    sh "git tag new_version "             
+                    // sh "git push --tags"
                     sh "git status"
                 }
                 rtMavenResolver (
