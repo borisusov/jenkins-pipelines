@@ -84,6 +84,11 @@ pipeline {
                     sh (label: "Git Tags", script: """
                         eval `ssh-agent -s`
                         ssh-add ${KEY_FILE}
+
+                        git config --global user.email "busov@ukr.net"
+                        git config --global user.name "Jenkins"
+
+
                         git tag new_version -m 'bbbaaa'
                         git push --tags
 
