@@ -79,10 +79,17 @@ pipeline {
         }
         stage ("git tag"){
             steps{
-                sh "echo This is github script"                    
-                sh "git tag new_version "             
-                sh "git push --tags "
-                sh "git status"
+                withCredentials([sshUserPrivateKey(credentialsId: 'borisusov-git', keyFileVariable: 'KEY_FILE')]) {
+                    
+                    sh (label: "Git Tags", script: """
+                        eval `ssh-agent -s`
+                        ssh-add ${KEY_FILE}
+                        git tag new_version -m 'bbbaaa'
+                        git push --tags
+
+                    """)
+                }
+                
             }
         }
         
