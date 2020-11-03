@@ -87,7 +87,7 @@ pipeline {
                         git config --global user.name "Jenkins"
 
 
-                        git tag new_version -m 'bbbaaa'
+                        git tag new_version -m 'a1'
                         git push --tags
 
                     """)
