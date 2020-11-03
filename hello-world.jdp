@@ -88,7 +88,7 @@ pipeline {
 
 
                         git tag new_version -m 'a1'
-                        git push --tags
+                        git push --tags -f
 
                     """)
                 }
