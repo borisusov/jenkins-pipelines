@@ -41,6 +41,18 @@ pipeline {
                     // Attach custom properties to the published artifacts:
                     //properties: ['key1=value1', 'key2=value2']
                 )
+
+                rtMavenRun (
+                    tool: 'mvn_3.6.3',
+                    pom: 'pom.xml',
+                    goals: 'clean test',
+                    resolverId: 'my-resolver',
+                    deployerId: 'my-deployer',
+                    //  buildNumber: '99',
+                                       
+                    //  buildName: 'my-build'
+            )
+
                 rtMavenRun (
                     // Tool name from Jenkins configuration.
                     tool: 'mvn_3.6.3',
