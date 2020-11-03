@@ -9,10 +9,10 @@ pipeline {
     stages {
         stage('Maven Build') {
 
-            when {
+            //when {
                 
-                expression { false }
-            }
+            //    expression { false }
+            //}
             steps { 
                 sh "env | sort"
                 script {
@@ -61,17 +61,15 @@ pipeline {
                 echo "Build name is ${BUILD_DISPLAY_NAME}_${app_version}"
                 echo "Build version is ${app_version}"
                 echo "Name is ${app_name}"
-            
-               
-            
+         
+                        
 
 
 
             }
 
 
-
-          //  post {
+          //  post {++
           //      success {
           //          archiveArtifacts artifacts: 'target/*.war', fingerprint: true
           //      }
