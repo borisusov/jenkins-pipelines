@@ -20,8 +20,13 @@ pipeline {
                     app_version = pom.getVersion()
                     app_name    = pom.getName() 
                     echo "${app_name}-${app_version}"
-                    currentBuild.description = "${app_name}-${app_version}"
-            
+                    currentBuild.description = "${app_name}-${app_version}"    
+                     
+               // }
+               // sh './gradlew check'
+               // {
+                
+
                 }
                 rtMavenResolver (
                         id: 'my-resolver',
@@ -48,9 +53,7 @@ pipeline {
                     goals: 'clean test',
                     resolverId: 'my-resolver',
                     deployerId: 'my-deployer',
-                    //  buildNumber: '99',
-                                       
-                    //  buildName: 'my-build'
+                    
             )
 
                 rtMavenRun (
@@ -112,6 +115,9 @@ pipeline {
     }
 
     post {
+        //always {
+        //    junit 'build/reports/**/*.xml'
+        //}
         cleanup {
             cleanWs ()
         }
