@@ -1,10 +1,12 @@
 pipeline {
-    agent {
-        node {
-            label "master"
-            customWorkspace "/var/jenkins_home/workspace/hello-world-servlet/${BRANCH_NAME}"
-        }
-    }
+
+    agent any
+    // agent {
+    //     node {
+    //         label "master"
+    //         customWorkspace "/var/jenkins_home/workspace/hello-world-servlet/${BRANCH_NAME}"
+    //     }
+    // }
     
 
     tools {
@@ -121,12 +123,12 @@ pipeline {
         
     }
 
-    post {
-        //always {
-        //    junit 'build/reports/**/*.xml'
-        //}
-        cleanup {
-            cleanWs ()
-        }
-    }
+    // post {
+    //     //always {
+    //     //    junit 'build/reports/**/*.xml'
+    //     //}
+    //     //cleanup {
+    //         cleanWs ()
+    //     }
+    // }
 }
