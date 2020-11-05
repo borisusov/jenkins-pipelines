@@ -22,9 +22,9 @@ pipeline {
                     echo "${app_name}-${app_version}"
                     currentBuild.description = "${app_name}-${app_version}"    
                      
-               // }
+               
                // sh './gradlew check'
-               // {
+               
                 
 
                 }
