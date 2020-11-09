@@ -110,7 +110,8 @@ pipeline {
                         git config --global user.email "busov@ukr.net"
                         git config --global user.name "Jenkins"
 
-                        git tag new_version_3.1 -m'a1'
+                        git tag "${BUILD_DISPLAY_NAME}" -m'a1'
+                        
                         git push --tags -f
 
                     """)
