@@ -128,8 +128,8 @@ pipeline {
         //always {
         //    junit 'build/reports/**/*.xml'
         //}
-        //cleanup {
+        cleanup {
             cleanWs ()
-        
+        }
     }
 }
