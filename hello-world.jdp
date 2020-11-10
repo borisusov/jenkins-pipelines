@@ -39,7 +39,6 @@ pipeline {
                     snapshotRepo: 'default.maven.virtual'
                  )
 
-
                 rtMavenDeployer (
                     id: 'my-deployer',
                     serverId: 'jfrog',
@@ -49,16 +48,7 @@ pipeline {
                     // threads: 4,
                     
                  )
-
-               // rtMavenRun (
-               //    tool: 'mvn_3.6.3',
-               //    pom: 'pom.xml',
-               //    goals: 'clean test',
-               //   resolverId: 'my-resolver',
-               //    deployerId: 'my-deployer',
-               //     
-               //  )
-
+               
                 rtMavenRun (
                     // Tool name from Jenkins configuration.
                     tool: 'mvn_3.6.3',
@@ -71,21 +61,9 @@ pipeline {
                     
                     buildName: 'HelloWorld',
                     buildNumber: BUILD_NUMBER
-                )
-
-
-              //  echo "Job name is ${JOB_NAME}"
-              //  echo "Build URL is ${BUILD_URL}"
-              //  echo "Build name is ${BUILD_DISPLAY_NAME}_${app_version}"
-              //  echo "Build version is ${app_version}"
-              //  echo "Name is ${app_name}"
-         
-                        
-
-
-
+                )                  
+      
             }
-
 
           //  post {++
           //      success {
@@ -93,7 +71,6 @@ pipeline {
           //      }
           //  }
         }
-
 
         stage ("test"){
             steps{
@@ -103,26 +80,17 @@ pipeline {
                     goals: 'clean test',
                     resolverId: 'my-resolver',
                     deployerId: 'my-deployer',
-                    
-                 )
+                )
 
                   echo "Job name is ${JOB_NAME}"
                   echo "Build URL is ${BUILD_URL}"
                   echo "Build name is ${BUILD_DISPLAY_NAME}_${app_version}"
                   echo "Build version is ${app_version}"
                   echo "Name is ${app_name}"
-
-
-                
                 
             }
         }
-        
-
-
-
-
-
+  
         stage ("git tag"){
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'borisusov-git', keyFileVariable: 'KEY_FILE')]) {
@@ -139,11 +107,9 @@ pipeline {
 
                     """)
                 }
-                
+     
             }
-        }
-        
-        
+        }          
     }
 
     // post {
