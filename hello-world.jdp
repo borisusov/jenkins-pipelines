@@ -14,12 +14,10 @@ pipeline {
     }
     
     stages {
-        stage('Maven Build') {
+        stage('Configure Maven'){
 
-            //when {
-            //    expression { false }
-            //}
-            steps { 
+            steps{
+
                 sh "env | sort"
                 sh "pwd"
                 sh "find . -name *.xml"
@@ -48,30 +46,9 @@ pipeline {
                     // threads: 4,
                     
                  )
-               
-                rtMavenRun (
-                    // Tool name from Jenkins configuration.
-                    tool: 'mvn_3.6.3',
-                    pom: 'pom.xml',
-                    goals: 'clean install -DskipTests',
-                    // Maven options.
-                    opts: '-Xms1024m -Xmx4096m',
-                    resolverId: 'my-resolver',
-                    deployerId: 'my-deployer',
-                    
-                    buildName: 'HelloWorld',
-                    buildNumber: BUILD_NUMBER
-                )                  
-      
+                                
             }
-
-          //  post {++
-          //      success {
-          //          archiveArtifacts artifacts: 'target/*.war', fingerprint: true
-          //      }
-          //  }
         }
-
         stage ("test"){
             steps{
                 rtMavenRun (
@@ -90,6 +67,41 @@ pipeline {
                 
             }
         }
+        
+
+
+
+        stage('Maven Build') {
+
+            //when {
+            //    expression { false }
+            //}
+
+            // TO DO cleanup before checkout  
+
+            steps { 
+                
+               
+                rtMavenRun (
+                    // Tool name from Jenkins configuration.
+                    tool: 'mvn_3.6.3',
+                    pom: 'pom.xml',
+                    goals: 'clean install -DskipTests',
+                    // Maven options.
+                    opts: '-Xms1024m -Xmx4096m',
+                    resolverId: 'my-resolver',
+                    deployerId: 'my-deployer',
+                    
+                    buildName: 'HelloWorld',
+                    buildNumber: BUILD_NUMBER
+                )                  
+      
+            }
+
+          
+        }
+
+        
   
         stage ("git tag"){
             steps{
@@ -102,7 +114,7 @@ pipeline {
                         git config --global user.email "busov@ukr.net"
                         git config --global user.name "Jenkins"
 
-                        git tag "${BUILD_DISPLAY_NAME}" -m'a1'
+                        git tag "${BUILD_DISPLAY_NAME}" -f
                         git push --tags -f
 
                     """)
@@ -112,12 +124,12 @@ pipeline {
         }          
     }
 
-    // post {
-    //     //always {
-    //     //    junit 'build/reports/**/*.xml'
-    //     //}
-    //     //cleanup {
-    //         cleanWs ()
-    //     }
-    // }
+    post {
+        //always {
+        //    junit 'build/reports/**/*.xml'
+        //}
+        //cleanup {
+            cleanWs ()
+        }
+    }
 }
