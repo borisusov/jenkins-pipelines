@@ -113,7 +113,7 @@ pipeline {
                   echo "Name is ${app_name}"
 
 
-                }
+                
                 
             }
         }
