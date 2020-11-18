@@ -14,50 +14,51 @@ pipeline {
     }
     
     stages {
-        stage('Configure Maven'){
+        // stage('Configure Maven'){
 
-            steps{
+        //     steps{
 
-                sh "env | sort"
-                sh "pwd"
-                sh "find . -name *.xml"
-                script {
-                    pom         = readMavenPom file: 'pom.xml'
-                    app_version = pom.getVersion()
-                    app_name    = pom.getName() 
-                    echo "${app_name}-${app_version}"
-                    currentBuild.description = "${app_name}-${app_version}"    
+        //         sh "env | sort"
+        //         sh "pwd"
+        //         sh "find . -name *.xml"
+        //         script {
+        //             pom         = readMavenPom file: 'pom.xml'
+        //             app_version = pom.getVersion()
+        //             app_name    = pom.getName() 
+        //             echo "${app_name}-${app_version}"
+        //             currentBuild.description = "${app_name}-${app_version}"    
                                                                     
-                }
+        //         }
 
-                rtMavenResolver (
-                    id: 'my-resolver',
-                    serverId: 'jfrog',
-                    releaseRepo: 'default.maven.virtual',
-                    snapshotRepo: 'default.maven.virtual'
-                 )
+        //         rtMavenResolver (
+        //             id: 'my-resolver',
+        //             serverId: 'jfrog',
+        //             releaseRepo: 'default.maven.virtual',
+        //             snapshotRepo: 'default.maven.virtual'
+        //          )
 
-                rtMavenDeployer (
-                    id: 'my-deployer',
-                    serverId: 'jfrog',
-                    releaseRepo: 'release.maven.local',
-                    snapshotRepo: 'snapshot.maven.local',
-                    // By default, 3 threads are used to upload the artifacts to Artifactory. You can override this default by setting:
-                    // threads: 4,
+        //         rtMavenDeployer (
+        //             id: 'my-deployer',
+        //             serverId: 'jfrog',
+        //             releaseRepo: 'release.maven.local',
+        //             snapshotRepo: 'snapshot.maven.local',
+        //             // By default, 3 threads are used to upload the artifacts to Artifactory. You can override this default by setting:
+        //             // threads: 4,
                     
-                 )
+        //          )
                                 
-            }
-        }
+        //     }
+        // }
         stage ("test"){
             steps{
-                rtMavenRun (
-                    tool: 'mvn_3.6.3',
-                    pom: 'pom.xml',
-                    goals: 'clean test',
-                    resolverId: 'my-resolver',
-                    deployerId: 'my-deployer',
-                )
+                // rtMavenRun (
+                //     tool: 'mvn_3.6.3',
+                //     pom: 'pom.xml',
+                //     goals: 'clean test',
+                //     resolverId: 'my-resolver',
+                //     deployerId: 'my-deployer',
+                // )
+                sh "mvn clean test"
 
                   echo "Job name is ${JOB_NAME}"
                   echo "Build URL is ${BUILD_URL}"
@@ -73,28 +74,32 @@ pipeline {
 
         stage('Maven Build') {
 
-            //when {
-            //    expression { false }
-            //}
+            when {
+                anyOf {
+                    branch 'master'
+                    branch 'develop' 
+                    branch 'release'
+                }
+            }
 
             // TO DO cleanup before checkout  
 
             steps { 
-                
+                sh "mvn clean install -DskipTests"
                
-                rtMavenRun (
-                    // Tool name from Jenkins configuration.
-                    tool: 'mvn_3.6.3',
-                    pom: 'pom.xml',
-                    goals: 'clean install -DskipTests',
-                    // Maven options.
-                    opts: '-Xms1024m -Xmx4096m',
-                    resolverId: 'my-resolver',
-                    deployerId: 'my-deployer',
+                // rtMavenRun (
+                //     // Tool name from Jenkins configuration.
+                //     tool: 'mvn_3.6.3',
+                //     pom: 'pom.xml',
+                //     goals: 'clean install -DskipTests',
+                //     // Maven options.
+                //     opts: '-Xms1024m -Xmx4096m',
+                //     resolverId: 'my-resolver',
+                //     deployerId: 'my-deployer',
                     
-                    buildName: 'HelloWorld',
-                    buildNumber: BUILD_NUMBER
-                )                  
+                //     buildName: 'HelloWorld',
+                //     buildNumber: BUILD_NUMBER
+                // )                  
       
             }
 
@@ -104,6 +109,13 @@ pipeline {
         
   
         stage ("git tag"){
+            when {
+                anyOf {
+                    branch 'master'
+                    branch 'develop' 
+                    branch 'release'
+                }
+            }
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'borisusov-git', keyFileVariable: 'KEY_FILE')]) {
                     
@@ -112,7 +124,7 @@ pipeline {
                         ssh-add ${KEY_FILE}
 
                         git config --global user.email "busov@ukr.net"
-                        git config --global user.name "borisusov"
+                        git config --global user.name ""
 
                         git tag "${BUILD_DISPLAY_NAME}" -f
                         git push --tags -f
