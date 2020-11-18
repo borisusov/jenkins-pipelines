@@ -14,21 +14,21 @@ pipeline {
     }
     
     stages {
-        // stage('Configure Maven'){
+         stage('Configure Maven'){
 
-        //     steps{
+             steps{
 
-        //         sh "env | sort"
-        //         sh "pwd"
-        //         sh "find . -name *.xml"
-        //         script {
-        //             pom         = readMavenPom file: 'pom.xml'
-        //             app_version = pom.getVersion()
-        //             app_name    = pom.getName() 
-        //             echo "${app_name}-${app_version}"
-        //             currentBuild.description = "${app_name}-${app_version}"    
+                 sh "env | sort"
+                 sh "pwd"
+                 sh "find . -name *.xml"
+                 script {
+                     pom         = readMavenPom file: 'pom.xml'
+                     app_version = pom.getVersion()
+                     app_name    = pom.getName() 
+                     echo "${app_name}-${app_version}"
+                     currentBuild.description = "${app_name}-${app_version}"    
                                                                     
-        //         }
+                 }
 
         //         rtMavenResolver (
         //             id: 'my-resolver',
