@@ -124,7 +124,7 @@ pipeline {
                         ssh-add ${KEY_FILE}
 
                         git config --global user.email "busov@ukr.net"
-                        git config --global user.name ""
+                        git config --global user.name "jenkins"
 
                         git tag "${BUILD_DISPLAY_NAME}" -f
                         git push --tags -f
