@@ -123,11 +123,12 @@ pipeline {
                     passwordVariable: 'GIT_PASSWORD', 
                     usernameVariable: 'GIT_USERNAME')]
                 ) {
+                    
                     sh("""
                         # git config --global user.email "busov@ukr.net"
                         # git config --global user.name "jenkins"
                         git tag "${BUILD_DISPLAY_NAME}" -f
-                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${GIT_URL} --tags -f
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${GIT_URL.replace('https://','')} --tags -f
                     """)
                     
                 }
