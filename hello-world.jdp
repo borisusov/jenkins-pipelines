@@ -157,9 +157,9 @@ pipeline {
         always {
             archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: true
         }
-         cleanup {
-             cleanWs ()
-         }
+        //  cleanup {
+        //      cleanWs ()
+        //  }
     }
     
 }
