@@ -146,9 +146,10 @@ pipeline {
                  }
              }
             steps{
-                                                        
-                   # sh 'echo "artifact file" > generatedFile.txt'                                               
-                     sh cp /var/jenkins_home/workspace/hello-world-servlet_master/target/helloworld.war > "${BUILD_DISPLAY_NAME}".war      
+                     sh("""                                   
+                   # 'echo "artifact file" > generatedFile.txt'                                               
+                     cp /var/jenkins_home/workspace/hello-world-servlet_master/target/helloworld.war > "${BUILD_DISPLAY_NAME}".war  
+                      """)   
                  }
         }          
     }
