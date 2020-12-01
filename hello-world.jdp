@@ -132,8 +132,9 @@ pipeline {
                     """)
                     
                 }
+            }
                 
-                stage ("download artifact"){
+        stage ("download artifact"){
             when {
                 anyOf {
                     branch 'master'
