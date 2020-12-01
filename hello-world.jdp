@@ -154,9 +154,9 @@ pipeline {
     }
 
     post {
-        //always {
-        //    archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: true
-        //}
+        always {
+            archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: true
+        }
          cleanup {
              cleanWs ()
          }
