@@ -148,7 +148,7 @@ pipeline {
             steps{
                                                         
                    # sh 'echo "artifact file" > generatedFile.txt'                                               
-                     sh 'echo "artifact file" > "${BUILD_DISPLAY_NAME}".war'      
+                     sh 'echo "/var/jenkins_home/workspace/hello-world-servlet_master/target/helloworld.war" > "${BUILD_DISPLAY_NAME}".war'      
                  }
         }          
     }
