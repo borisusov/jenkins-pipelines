@@ -133,21 +133,24 @@ pipeline {
                     
                 }
             }
+
+
+        }    
                 
-        stage ("download artifact"){
-            when {
-                anyOf {
-                    branch 'master'
-                    branch 'develop' 
-                    branch 'release'
-                }
-            }
-            steps{
+        // stage ("download artifact"){
+        //     when {
+        //         anyOf {
+        //             branch 'master'
+        //             branch 'develop' 
+        //             branch 'release'
+        //         }
+        //     }
+        //     steps{
                                                         
-                    sh 'echo "artifact file" > generatedFile.txt'                                               
+        //             sh 'echo "artifact file" > generatedFile.txt'                                               
                            
-                 }
-        }          
+        //          }
+        // }          
     }
 
     post {
