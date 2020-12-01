@@ -133,21 +133,28 @@ pipeline {
                     
                 }
                 
-                
-                
-                
-            
-     
+                stage ("download artifact"){
+            when {
+                anyOf {
+                    branch 'master'
+                    branch 'develop' 
+                    branch 'release'
+                }
             }
+            steps{
+                                                        
+                    sh 'echo "artifact file" > generatedFile.txt'                                               
+                           
+                 }
         }          
     }
 
     post {
         //always {
-        //    junit 'build/reports/**/*.xml'
+        //    archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: true
         //}
-        cleanup {
-            cleanWs ()
-        }
+        // cleanup {
+        //     cleanWs ()
+        // }
     }
 }
