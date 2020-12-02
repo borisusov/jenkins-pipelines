@@ -160,9 +160,9 @@ pipeline {
             archiveArtifacts artifacts: '**/*.war', onlyIfSuccessful: true
            
         }
-        //   cleanup {
-        //       cleanWs ()
-        //   }
+          cleanup {
+              cleanWs ()
+          }
     }
     
 }
