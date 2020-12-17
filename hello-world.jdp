@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     options{
-        copyArtifactsPermission(projectName: '*')
+        copyArtifactsPermission ('*')
     }
     // agent {
     //     node {
