@@ -2,9 +2,7 @@ pipeline {
 
     agent any
 
-    options{
-        copyArtifactsPermission ('*')
-    }
+    
     // agent {
     //     node {
     //         label "master"
